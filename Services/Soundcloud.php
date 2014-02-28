@@ -1,5 +1,7 @@
 <?php
 require_once 'Soundcloud/Exception.php';
+require_once 'Soundcloud/File.php';
+require_once 'Soundcloud/File/Format.php';
 require_once 'Soundcloud/Version.php';
 
 /**
@@ -42,23 +44,6 @@ class Services_Soundcloud
      * @static
      */
     private static $_apiVersion = 1;
-
-    /**
-     * Supported audio MIME types
-     *
-     * @var array
-     *
-     * @access private
-     * @static
-     */
-    private static $_audioMimeTypes = array(
-        'aac' => 'video/mp4',
-        'aiff' => 'audio/x-aiff',
-        'flac' => 'audio/flac',
-        'mp3' => 'audio/mpeg',
-        'ogg' => 'audio/ogg',
-        'wav' => 'audio/x-wav'
-    );
 
     /**
      * OAuth client id
@@ -382,22 +367,13 @@ class Services_Soundcloud
     }
 
     /**
-     * Get the corresponding MIME type for a given file extension
-     *
-     * @param string $extension Given extension
-     *
-     * @return string
-     * @throws Services_Soundcloud_Unsupported_Audio_Format_Exception
+     * @see Services_Soundcloud_File_Format::getAudioMimeType()
      *
      * @access public
      */
     function getAudioMimeType($extension)
     {
-        if (array_key_exists($extension, self::$_audioMimeTypes)) {
-            return self::$_audioMimeTypes[$extension];
-        } else {
-            throw new Services_Soundcloud_Unsupported_Audio_Format_Exception();
-        }
+        return Services_Soundcloud_File_Format::getMimeType($extension);
     }
 
     /**
@@ -903,6 +879,15 @@ class Services_Soundcloud
             unset($options[self::CURLOPT_OAUTH_TOKEN]);
         } else {
             $includeAccessToken = true;
+        }
+
+        if (array_key_exists(CURLOPT_POSTFIELDS, $options)
+            && array_key_exists('track[asset_data]', $options[CURLOPT_POSTFIELDS])
+        ) {
+            $file = new Services_Soundcloud_File(
+                $options[CURLOPT_POSTFIELDS]['track[asset_data]']
+            );
+            $options[CURLOPT_POSTFIELDS]['track[asset_data]'] = $file->getPostField();
         }
 
         if (array_key_exists(CURLOPT_HTTPHEADER, $options)) {
