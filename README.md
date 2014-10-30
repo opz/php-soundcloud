@@ -19,7 +19,7 @@ Check out the [getting started](https://github.com/mptre/php-soundcloud/wiki/OAu
 There's an unofficial [mirror](https://github.com/internalsystemerror/php-soundcloud) of this project with [Composer](http://getcomposer.org/) support. To install just run the following command from your project root:
 
 ```bash
-$ composer require mptre/php-soundcloud 3.*
+$ composer require ise/php-soundcloud 3.*
 ```
 
 ## Examples
