@@ -1,9 +1,5 @@
 # SoundCloud PHP API Wrapper
 
-## Looking for maintainer(s)
-
-I don't have the time to maintain the wrapper anymore. Therefor I'm looking for a new maintainer. If you're interested please send me an email (address on profile page).
-
 ## Introduction
 
 A wrapper for the SoundCloud API written in PHP with support for authentication using [OAuth 2.0](http://oauth.net/2/).
