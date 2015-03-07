@@ -1,9 +1,9 @@
 <?php
 
-use \SoundCloud\Exception.php;
-use \SoundCloud\Version.php;
+namespace GlenScott\SoundCloud;
 
-namespace SoundCloud;
+use GlenScott\SoundCloud\Exception;
+use GlenScott\SoundCloud\Version;
 
 /**
  * SoundCloud API wrapper with support for authentication using OAuth 2
@@ -15,7 +15,7 @@ namespace SoundCloud;
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://github.com/mptre/php-soundcloud
  */
-class Soundcloud
+class SoundCloud
 {
 
     /**

@@ -1,7 +1,13 @@
 <?php
+
+namespace SoundCloud;
+
+use \SoundCloud\SoundCloud;
+
 require_once 'Soundcloud_Test_Helper.php';
 
-class Soundcloud_Test extends PHPUnit_Framework_TestCase {
+class SoundCloudTest extends PHPUnit_Framework_TestCase
+{
 
     protected $soundcloud;
 
