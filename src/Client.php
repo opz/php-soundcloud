@@ -5,6 +5,7 @@ namespace SoundCloud;
 use SoundCloud\Exception;
 use SoundCloud\Version;
 use SoundCloud\UnsupportedAudioFormatException;
+use SoundCloud\UnsupportedResponseFormatException;
 
 /**
  * SoundCloud API wrapper with support for authentication using OAuth 2
@@ -223,7 +224,7 @@ class Client
     function __construct($clientId, $clientSecret, $redirectUri = null, $development = false)
     {
         if (empty($clientId)) {
-            throw new Services_Soundcloud_Missing_Client_Id_Exception();
+            throw new MissingClientIdException();
         }
 
         $this->_clientId = $clientId;
@@ -561,7 +562,7 @@ class Client
         if (array_key_exists($format, self::$_responseFormats)) {
             $this->_responseFormat = self::$_responseFormats[$format];
         } else {
-            throw new Services_Soundcloud_Unsupported_Response_Format_Exception();
+            throw new UnsupportedResponseFormatException();
         }
 
         return $this;
@@ -940,7 +941,7 @@ class Client
         if ($this->_validResponseCode($this->_lastHttpResponseCode)) {
             return $this->_lastHttpResponseBody;
         } else {
-            throw new Services_Soundcloud_Invalid_Http_Response_Code_Exception(
+            throw new InvalidHttpResponseCodeException(
                 null,
                 0,
                 $this->_lastHttpResponseBody,

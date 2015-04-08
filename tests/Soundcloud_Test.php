@@ -63,7 +63,7 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
         }
 
         foreach ($unsupportedExtensions as $extension => $mimeType) {
-            $this->setExpectedException('Services_Soundcloud_Unsupported_Audio_Format_Exception');
+            $this->setExpectedException('SoundCloud\UnsupportedAudioFormatException');
 
             $this->soundcloud->getAudioMimeType($extension);
         }
@@ -149,7 +149,7 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
     }
 
     function testSetResponseFormatHtml() {
-        $this->setExpectedException('Services_Soundcloud_Unsupported_Response_Format_Exception');
+        $this->setExpectedException('SoundCloud\UnsupportedResponseFormatException');
 
         $this->soundcloud->setResponseFormat('html');
     }
@@ -284,13 +284,13 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
     }
 
     function testSoundcloudMissingConsumerKeyException() {
-        $this->setExpectedException('Services_Soundcloud_Missing_Client_Id_Exception');
+        $this->setExpectedException('SoundCloud\MissingClientIdException');
 
-        $soundcloud = new Services_Soundcloud('', '');
+        $soundcloud = new Client('', '');
     }
 
     function testSoundcloudInvalidHttpResponseCodeException() {
-        $this->setExpectedException('Services_Soundcloud_Invalid_Http_Response_Code_Exception');
+        $this->setExpectedException('SoundCloud\InvalidHttpResponseCodeException');
 
         $this->soundcloud->get('me');
     }
@@ -301,12 +301,8 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
     function testSoundcloudInvalidHttpResponseCode($expectedHeaders) {
         try {
             $this->soundcloud->get('me');
-        } catch (Services_Soundcloud_Invalid_Http_Response_Code_Exception $e) {
-            self::assertEquals(
-                '{"error":"401 - Unauthorized"}',
-                $e->getHttpBody()
-            );
-
+        } catch (InvalidHttpResponseCodeException $e) {
+            self::assertEquals(' ', $e->getHttpBody());
             self::assertEquals(401, $e->getHttpCode());
 
             foreach ($expectedHeaders as $key => $val) {
@@ -342,11 +338,10 @@ HEADERS;
 
     static function dataProviderSoundcloudInvalidHttpResponseCode() {
         $expectedHeaders = array(
-            'server' => 'nginx',
-            'content_type' => 'application/json; charset=utf-8',
-            'connection' => 'keep-alive',
+            'server' => 'am/2',
+            'content_type' => 'text/html; charset=utf-8',
             'cache_control' => 'no-cache',
-            'content_length' => '30'
+            'content_length' => '1'
         );
 
         return array(array($expectedHeaders));

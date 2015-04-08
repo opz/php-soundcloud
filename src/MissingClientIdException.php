@@ -12,7 +12,7 @@ namespace SoundCloud;
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @link http://github.com/mptre/php-soundcloud
  */
-class MissingClientIdException extends Exception
+class MissingClientIdException extends \Exception
 {
 
     /**
