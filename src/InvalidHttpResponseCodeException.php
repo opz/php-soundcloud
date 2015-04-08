@@ -8,6 +8,7 @@ namespace SoundCloud;
  * @category Services
  * @package Services_Soundcloud
  * @author Anton Lindqvist <anton@qvister.se>
+ * @author Glen Scott <glen@glenscott.co.uk>
  * @copyright 2010 Anton Lindqvist <anton@qvister.se>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @link http://github.com/mptre/php-soundcloud
@@ -52,7 +53,8 @@ class InvalidHttpResponseCodeException extends \Exception
      *
      * @return void
      */
-    function __construct($message = null, $code = 0, $httpBody = null, $httpCode = 0) {
+    public function __construct($message = null, $code = 0, $httpBody = null, $httpCode = 0)
+    {
         $this->httpBody = $httpBody;
         $this->httpCode = $httpCode;
         $message = sprintf($this->message, $httpCode);
@@ -65,7 +67,8 @@ class InvalidHttpResponseCodeException extends \Exception
      *
      * @return mixed
      */
-    function getHttpBody() {
+    public function getHttpBody()
+    {
         return $this->httpBody;
     }
 
@@ -74,8 +77,8 @@ class InvalidHttpResponseCodeException extends \Exception
      *
      * @return mixed
      */
-    function getHttpCode() {
+    public function getHttpCode()
+    {
         return $this->httpCode;
     }
-
 }
