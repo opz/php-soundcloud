@@ -217,7 +217,7 @@ class Client
      * @param boolean $development  Sandbox mode
      *
      * @return void
-     * @throws Services_Soundcloud_Missing_Client_Id_Exception
+     * @throws SoundCloud\MissingClientIdException
      *
      * @access public
      */
@@ -390,7 +390,7 @@ class Client
      * @param string $extension Given extension
      *
      * @return string
-     * @throws Services_Soundcloud_Unsupported_Audio_Format_Exception
+     * @throws SoundCloud\UnsupportedAudioFormatException
      *
      * @access public
      */
@@ -553,7 +553,7 @@ class Client
      * @param string $format Response format, could either be XML or JSON
      *
      * @return object
-     * @throws Services_Soundcloud_Unsupported_Response_Format_Exception
+     * @throws SoundCloud\UnsupportedResponseFormatException
      *
      * @access public
      */
@@ -891,7 +891,7 @@ class Client
      * @param array  $curlOptions Optional cURL options
      *
      * @return mixed
-     * @throws Services_Soundcloud_Invalid_Http_Response_Code_Exception
+     * @throws SoundCloud\InvalidHttpResponseCodeException
      *
      * @access protected
      */
