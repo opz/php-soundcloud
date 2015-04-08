@@ -5,7 +5,8 @@ set_include_path(
     . realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..')
 );
 
-require_once 'Services/Soundcloud.php';
+require_once dirname( __FILE__ ) . '/../src/Client.php';
+require_once dirname( __FILE__ ) . '/../src/Version.php';
 
 /**
  * Extended class of the Soundcloud class in order to expose protected methods
@@ -18,7 +19,7 @@ require_once 'Services/Soundcloud.php';
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @link http://github.com/mptre/php-soundcloud
  */
-class Services_Soundcloud_Expose extends Services_Soundcloud {
+class Services_Soundcloud_Expose extends SoundCloud\Client {
 
     /**
      * Class constructor. See parent constructor for further reference.

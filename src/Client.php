@@ -1,21 +1,20 @@
 <?php
 
-use \SoundCloud\Exception.php;
-use \SoundCloud\Version.php;
-
 namespace SoundCloud;
+
+use SoundCloud\Exception;
+use SoundCloud\Version;
+use SoundCloud\UnsupportedAudioFormatException;
 
 /**
  * SoundCloud API wrapper with support for authentication using OAuth 2
  *
- * @category  Services
- * @package   Services_Soundcloud
  * @author    Anton Lindqvist <anton@qvister.se>
  * @copyright 2010 Anton Lindqvist <anton@qvister.se>
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://github.com/mptre/php-soundcloud
  */
-class Soundcloud
+class Client
 {
 
     /**
@@ -399,7 +398,7 @@ class Soundcloud
         if (array_key_exists($extension, self::$_audioMimeTypes)) {
             return self::$_audioMimeTypes[$extension];
         } else {
-            throw new Services_Soundcloud_Unsupported_Audio_Format_Exception();
+            throw new UnsupportedAudioFormatException();
         }
     }
 
@@ -838,7 +837,7 @@ class Soundcloud
      */
     protected function _getUserAgent()
     {
-        return self::$_userAgent . '/' . new Services_Soundcloud_Version;
+        return self::$_userAgent . '/' . new Version;
     }
 
     /**

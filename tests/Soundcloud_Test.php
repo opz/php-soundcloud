@@ -2,17 +2,18 @@
 
 namespace SoundCloud;
 
-use \SoundCloud\SoundCloud;
+use \SoundCloud\Client;
+use \SoundCloud\Version;
 
 require_once 'Soundcloud_Test_Helper.php';
 
-class SoundCloudTest extends PHPUnit_Framework_TestCase
+class SoundCloudTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $soundcloud;
 
     function setUp() {
-        $this->soundcloud = new Services_Soundcloud_Expose(
+        $this->soundcloud = new \Services_Soundcloud_Expose(
             '1337',
             '1337',
             'http://soundcloud.local/callback'
@@ -28,7 +29,7 @@ class SoundCloudTest extends PHPUnit_Framework_TestCase
     function testVersionFormat() {
         self::assertRegExp(
             '/^[0-9]+\.[0-9]+\.[0-9]+$/',
-            (string)new Services_Soundcloud_Version
+            (string)new Version
         );
     }
 
