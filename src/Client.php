@@ -11,6 +11,7 @@ use SoundCloud\UnsupportedResponseFormatException;
  * SoundCloud API wrapper with support for authentication using OAuth 2
  *
  * @author    Anton Lindqvist <anton@qvister.se>
+ * @author    Glen Scott <glen@glenscott.co.uk>
  * @copyright 2010 Anton Lindqvist <anton@qvister.se>
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://github.com/mptre/php-soundcloud
@@ -221,7 +222,7 @@ class Client
      *
      * @access public
      */
-    function __construct($clientId, $clientSecret, $redirectUri = null, $development = false)
+    public function __construct($clientId, $clientSecret, $redirectUri = null, $development = false)
     {
         if (empty($clientId)) {
             throw new MissingClientIdException();
@@ -246,7 +247,7 @@ class Client
      * @access public
      * @see Soundcloud::_buildUrl()
      */
-    function getAuthorizeUrl($params = array())
+    public function getAuthorizeUrl($params = array())
     {
         $defaultParams = array(
             'client_id' => $this->_clientId,
@@ -268,7 +269,7 @@ class Client
      * @access public
      * @see Soundcloud::_buildUrl()
      */
-    function getAccessTokenUrl($params = array())
+    public function getAccessTokenUrl($params = array())
     {
         return $this->_buildUrl(self::$_paths['access_token'], $params, false);
     }
@@ -283,7 +284,7 @@ class Client
      *
      * @access public
      */
-    function credentialsFlow($username, $password)
+    public function credentialsFlow($username, $password)
     {
         $postData = array(
             'client_id' => $this->_clientId,
@@ -320,7 +321,7 @@ class Client
      * @access public
      * @see Soundcloud::_getAccessToken()
      */
-    function accessToken($code = null, $postData = array(), $curlOptions = array())
+    public function accessToken($code = null, $postData = array(), $curlOptions = array())
     {
         $defaultPostData = array(
             'code' => $code,
@@ -346,7 +347,7 @@ class Client
      *
      * @access public
      */
-    function accessTokenRefresh($refreshToken, $postData = array(), $curlOptions = array())
+    public function accessTokenRefresh($refreshToken, $postData = array(), $curlOptions = array())
     {
         $defaultPostData = array(
             'refresh_token' => $refreshToken,
@@ -367,7 +368,7 @@ class Client
      *
      * @access public
      */
-    function getAccessToken()
+    public function getAccessToken()
     {
         return $this->_accessToken;
     }
@@ -379,7 +380,7 @@ class Client
      *
      * @access public
      */
-    function getApiVersion()
+    public function getApiVersion()
     {
         return self::$_apiVersion;
     }
@@ -394,7 +395,7 @@ class Client
      *
      * @access public
      */
-    function getAudioMimeType($extension)
+    public function getAudioMimeType($extension)
     {
         if (array_key_exists($extension, self::$_audioMimeTypes)) {
             return self::$_audioMimeTypes[$extension];
@@ -412,7 +413,7 @@ class Client
      *
      * @access public
      */
-    function getCurlOptions($key = null)
+    public function getCurlOptions($key = null)
     {
         if ($key) {
             return (array_key_exists($key, $this->_curlOptions))
@@ -430,7 +431,7 @@ class Client
      *
      * @access public
      */
-    function getDevelopment()
+    public function getDevelopment()
     {
         return $this->_development;
     }
@@ -444,7 +445,7 @@ class Client
      *
      * @access public
      */
-    function getHttpHeader($header)
+    public function getHttpHeader($header)
     {
         if (is_array($this->_lastHttpResponseHeaders)
             && array_key_exists($header, $this->_lastHttpResponseHeaders)
@@ -462,7 +463,7 @@ class Client
      *
      * @access public
      */
-    function getRedirectUri()
+    public function getRedirectUri()
     {
         return $this->_redirectUri;
     }
@@ -474,7 +475,7 @@ class Client
      *
      * @access public
      */
-    function getResponseFormat()
+    public function getResponseFormat()
     {
         return $this->_responseFormat;
     }
@@ -488,7 +489,7 @@ class Client
      *
      * @access public
      */
-    function setAccessToken($accessToken)
+    public function setAccessToken($accessToken)
     {
         $this->_accessToken = $accessToken;
 
@@ -517,7 +518,7 @@ class Client
      *
      * @access public
      */
-    function setCurlOptions()
+    public function setCurlOptions()
     {
         $args = func_get_args();
         $options = (is_array($args[0]))
@@ -540,7 +541,7 @@ class Client
      *
      * @access public
      */
-    function setRedirectUri($redirectUri)
+    public function setRedirectUri($redirectUri)
     {
         $this->_redirectUri = $redirectUri;
 
@@ -557,7 +558,7 @@ class Client
      *
      * @access public
      */
-    function setResponseFormat($format)
+    public function setResponseFormat($format)
     {
         if (array_key_exists($format, self::$_responseFormats)) {
             $this->_responseFormat = self::$_responseFormats[$format];
@@ -577,7 +578,7 @@ class Client
      *
      * @access public
      */
-    function setDevelopment($development)
+    public function setDevelopment($development)
     {
         $this->_development = $development;
 
@@ -596,7 +597,7 @@ class Client
      * @access public
      * @see Soundcloud::_request()
      */
-    function get($path, $params = array(), $curlOptions = array())
+    public function get($path, $params = array(), $curlOptions = array())
     {
         $url = $this->_buildUrl($path, $params);
 
@@ -615,7 +616,7 @@ class Client
      * @access public
      * @see Soundcloud::_request()
      */
-    function post($path, $postData = array(), $curlOptions = array())
+    public function post($path, $postData = array(), $curlOptions = array())
     {
         $url = $this->_buildUrl($path);
         $options = array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => $postData);
@@ -636,7 +637,7 @@ class Client
      * @access public
      * @see Soundcloud::_request()
      */
-    function put($path, $postData, $curlOptions = array())
+    public function put($path, $postData, $curlOptions = array())
     {
         $url = $this->_buildUrl($path);
         $options = array(
@@ -660,7 +661,7 @@ class Client
      * @access public
      * @see Soundcloud::_request()
      */
-    function delete($path, $params = array(), $curlOptions = array())
+    public function delete($path, $params = array(), $curlOptions = array())
     {
         $url = $this->_buildUrl($path, $params);
         $options = array(CURLOPT_CUSTOMREQUEST => 'DELETE');
@@ -681,7 +682,7 @@ class Client
      * @access public
      * @see Soundcloud::_request()
      */
-    function download($trackId, $params = array(), $curlOptions = array())
+    public function download($trackId, $params = array(), $curlOptions = array())
     {
         $lastResponseFormat = array_pop(explode('/', $this->getResponseFormat()));
         $defaultParams = array('oauth_token' => $this->getAccessToken());
@@ -949,5 +950,4 @@ class Client
             );
         }
     }
-
 }
