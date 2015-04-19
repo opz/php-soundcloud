@@ -16,11 +16,40 @@ Check out the [getting started](https://github.com/mptre/php-soundcloud/wiki/OAu
 
 ## Composer
 
-There's an unofficial [mirror](https://github.com/internalsystemerror/php-soundcloud) of this project with [Composer](http://getcomposer.org/) support. To install just run the following command from your project root:
+A version of the library that is PSR-4 compliant and installable via Composer is available on the psr-4 branch.  To include it in your projects, include the following in your `composer.json` file:
 
-```bash
-$ composer require ise/php-soundcloud 3.*
-```
+````
+{
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/mptre/php-soundcloud"
+        }
+    ],
+    "require": {
+        "glenscott/soundcloud": "dev-psr-4"
+    }
+}
+````
+
+The Composer-version of the libray requires PHP >= 5.3 because of the use of namespaces.
+
+The namespaced class names differ from the examples below.  For example, to create a new client object with app credentials, instead of:
+
+````
+$client = new Services_Soundcloud(
+  'CLIENT_ID', 'CLIENT_SECRET', 'REDIRECT_URL');
+````
+
+Instead, use:
+
+````
+$client = new SoundCloud\Client(
+    'CLIENT_ID',
+    'CLIENT_SECRET',
+    'REDIRECT_URL'
+);
+````
 
 ## Examples
 
