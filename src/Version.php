@@ -26,9 +26,8 @@ class Version
      *
      * @access public
      */
-    function __toString()
+    public function __toString()
     {
         return implode('.', array(self::MAJOR, self::MINOR, self::PATCH));
     }
-
 }
