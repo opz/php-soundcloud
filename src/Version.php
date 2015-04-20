@@ -15,9 +15,9 @@ namespace SoundCloud;
 class Version
 {
 
-    const MAJOR = 2;
-    const MINOR = 3;
-    const PATCH = 2;
+    const MAJOR = 3;
+    const MINOR = 0;
+    const PATCH = 0;
 
     /**
      * Magic to string method
