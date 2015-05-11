@@ -909,6 +909,15 @@ class Client
             $includeAccessToken = true;
         }
 
+        if (array_key_exists(CURLOPT_POSTFIELDS, $options)
+            && array_key_exists('track[asset_data]', $options[CURLOPT_POSTFIELDS])
+        ) {
+            $file = new File(
+                $options[CURLOPT_POSTFIELDS]['track[asset_data]']
+            );
+            $options[CURLOPT_POSTFIELDS]['track[asset_data]'] = $file->getPostField();
+        }
+
         if (array_key_exists(CURLOPT_HTTPHEADER, $options)) {
             $options[CURLOPT_HTTPHEADER] = array_merge(
                 $this->_buildDefaultHeaders(),
