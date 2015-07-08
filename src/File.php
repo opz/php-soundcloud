@@ -44,13 +44,23 @@ if (version_compare(PHP_VERSION, '5.5.0') >= 0) {
 
         public function __construct($path)
         {
-            if (!file_exists($path)) {
-                error_log($path);
+            $checkPath = $path;
+
+            if (strpos($checkPath, '@') === 0) {
+                $checkPath = substr($checkPath, 1);
+            }
+
+            if (!file_exists($checkPath)) {
+                error_log($checkPath);
                 throw new FileDoesNotExistException();
             }
 
-            if (!is_readable($path)) {
+            if (!is_readable($checkPath)) {
                 throw new FileIsNotReadableException();
+            }
+
+            if (strpos($path, '@') !== 0) {
+                $path = '@' . $path;
             }
 
             $this->path = $path;
