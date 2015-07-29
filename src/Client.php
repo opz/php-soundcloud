@@ -610,19 +610,20 @@ class Client
      * @param string $path        Request path
      * @param array  $postData    Optional post data
      * @param array  $curlOptions Optional cURL options
+     * @param string $mimeType    Optional MIME type for track uploads
      *
      * @return mixed
      *
      * @access public
      * @see Soundcloud::_request()
      */
-    public function post($path, $postData = array(), $curlOptions = array())
+    public function post($path, $postData = array(), $curlOptions = array(), $mimeType = null)
     {
         $url = $this->_buildUrl($path);
         $options = array(CURLOPT_POST => true, CURLOPT_POSTFIELDS => $postData);
         $options += $curlOptions;
 
-        return $this->_request($url, $options);
+        return $this->_request($url, $options, $mimeType);
     }
 
     /**
@@ -890,13 +891,14 @@ class Client
      *
      * @param string $url         Absolute URL to request
      * @param array  $curlOptions Optional cURL options
+     * @param string $mimeType    Optional MIME type for track uploads
      *
      * @return mixed
      * @throws SoundCloud\InvalidHttpResponseCodeException
      *
      * @access protected
      */
-    protected function _request($url, $curlOptions = array())
+    protected function _request($url, $curlOptions = array(), $mimeType = null)
     {
         $ch = curl_init($url);
         $options = $this->_curlOptions;
@@ -913,7 +915,8 @@ class Client
             && array_key_exists('track[asset_data]', $options[CURLOPT_POSTFIELDS])
         ) {
             $file = new File(
-                $options[CURLOPT_POSTFIELDS]['track[asset_data]']
+                $options[CURLOPT_POSTFIELDS]['track[asset_data]'],
+                $mimeType
             );
             $options[CURLOPT_POSTFIELDS]['track[asset_data]'] = $file->getPostField();
         }

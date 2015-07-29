@@ -1,5 +1,5 @@
 {
-    "name": "glenscott/soundcloud",
+    "name": "opz/soundcloud",
     "description": "SoundCloud API Wrapper",
     "license": "MIT",
     "keywords": ["soundcloud"],
@@ -11,6 +11,10 @@
       {
         "name": "Glen Scott",
         "email": "glen@glenscott.co.uk"
+      },
+      {
+          "name": "Will Shahda",
+          "email": "will.shahda@gmail.com"
       }
     ],
     "require": {

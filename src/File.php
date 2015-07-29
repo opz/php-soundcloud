@@ -9,7 +9,7 @@ namespace SoundCloud;
 if (version_compare(PHP_VERSION, '5.5.0') >= 0) {
     class File extends \CURLFile
     {
-        public function __construct($path)
+        public function __construct($path, $mimeType = null)
         {
             if (strpos($path, '@') === 0) {
                 $path = substr($path, 1);
@@ -24,9 +24,13 @@ if (version_compare(PHP_VERSION, '5.5.0') >= 0) {
             }
 
             $info = pathinfo($path);
-            $mimeType = File\Format::getMimeType(
-                $info['extension']
-            );
+
+            if ($mimeType === null) {
+                $mimeType = File\Format::getMimeType(
+                    $info['extension']
+                );
+            }
+
             $name = $info['basename'];
 
             parent::__construct($path, $mimeType, $name);
